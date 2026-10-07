@@ -1,6 +1,29 @@
 from pathlib import Path
 import pandas as pd
 
+def load_text(file_path: str | Path) -> str:
+    """
+    Load a TXT file and return its text content.
+
+    The original file is not modified.
+    """
+
+    file_path = Path(file_path)
+
+    if not file_path.exists():
+        raise FileNotFoundError(
+            f"File not found: {file_path}"
+        )
+
+    if file_path.suffix.lower() != ".txt":
+        raise ValueError(
+            f"Unsupported file type: {file_path.suffix}. "
+            "Only TXT files are supported."
+        )
+
+    return file_path.read_text(
+        encoding="utf-8"
+    )
 
 def load_table(file_path: str | Path) -> pd.DataFrame:
     """
